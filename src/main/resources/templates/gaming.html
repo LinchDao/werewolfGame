@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>狼人杀</title>
+    <link rel="stylesheet" type="text/css" href="./css/gaming.css">
+</head>
+<body>
+
+<div class="container">
+    <!-- 区域 1: 展示身份信息 -->
+    <div id="identitySection" class="section card">
+        <h2>你的身份</h2>
+        <p id="identityInfo">正在加载身份...</p>
+        <button class="btn-toggle" onclick="toggleIdentitySection()">隐藏/显示身份</button>
+    </div>
+
+    <!-- 区域 2: 操作区域 -->
+    <div id="operationSection" class="section card">
+        <!-- 1. 入夜按钮 -->
+        <div id="nightReadySection" class="operation-item" style="display: none;">
+            <button id="nightReadyButton" class="btn-primary" onclick="readyForNight()">准备入夜</button>
+        </div>
+
+        <!-- 2. 狼人选择区域 -->
+        <div id="wolfSelectionSection" class="operation-item section" style="display: none;">
+            <div id="wolfUserList">存活的狼人玩家为：</div>
+            <div id="liveWolfList"></div>
+            <h3>狼人请选择要攻击的玩家：</h3>
+            <div id="toKillUserList"></div>
+            <button class="btn-primary" onclick="submitWolfSelection()">提交选择</button>
+        </div>
+
+        <!-- 3. 预言家选择区 -->
+        <div id="prophetSelectionSection" class="operation-item section" style="display: none;">
+            <h3>预言家请选择要查验的玩家：</h3>
+            <div id="toCheckUserList"></div>
+            <button class="btn-primary" onclick="submitProphetSelection()">提交查验</button>
+        </div>
+
+        <!-- 预言家确认查验结果区域 -->
+        <div id="prophetConfirmSection" class="operation-item section" style="display: none;">
+            <h3>预言家查验结果：</h3>
+            <div id="confirmMessage"></div>
+            <div id="waitingMessage" style="display: none;">正在查询，请稍后...</div> <!-- 新增的等待消息 -->
+            <button id="confirmButton" class="btn-primary" onclick="submitProphetConfirm()" style="display: none;">确认</button>
+        </div>
+
+
+        <!-- 4. 女巫选择区 -->
+        <div id="witchSelectionSection" class="operation-item section" style="display: none;">
+            <div id="targetInfo"></div>
+            <div id="saveOption" style="display: none;">
+                <label>是否救人：</label>
+                <input type="radio" id="saveYes" name="save" value="true">是
+                <input type="radio" id="saveNo" name="save" value="false" checked>否
+            </div>
+
+            <div id="poisonOption" style="display: none;">
+                <label>是否毒人：</label>
+                <input type="radio" id="poisonYes" name="poison" value="true">是
+                <input type="radio" id="poisonNo" name="poison" value="false" checked>否
+                <select id="poisonSelect" style="display: none;"></select>
+            </div>
+            <button class="btn-primary" onclick="submitWitchSelection()">提交选择</button>
+        </div>
+
+        <!-- 村民投票区域 -->
+        <div id="villagerVoteSection" class="operation-item section" style="display: none;">
+            <h3>请选择要投票的玩家：</h3>
+            <select id="voteSelect"></select>
+            <button class="btn-primary" onclick="submitVote()">提交投票</button>
+            <button class="btn-secondary" onclick="submitAbstain()">弃票</button>
+        </div>
+
+        <!-- 6. 猎人选择区 -->
+        <div id="hunterKillSection" class="operation-item section" style="display: none;">
+            <h3>猎人请选择要攻击的玩家：</h3>
+            <select id="killSelect"></select>
+            <button class="btn-primary" onclick="submitHunterKill()">提交选择</button>
+        </div>
+
+        <div id="restartButtonSection" class="operation-item" style="display: none;">
+            <button class="btn-primary" onclick="restartGame()">重开游戏</button>
+        </div>
+
+        <div id="deathInfo"></div>
+    </div>
+
+    <!-- 区域 3: 展示系统和用户消息 -->
+    <div id="messageSection" class="section card">
+        <h2>消息</h2>
+        <ul id="messages"></ul>
+    </div>
+</div>
+
+<script type="text/javascript" src="./js/wolf.js"></script>
+<script type="text/javascript" src="./js/prophet.js"></script>
+<script type="text/javascript" src="./js/witch.js"></script>
+<script type="text/javascript" src="./js/hunter.js"></script>
+<script type="text/javascript" src="./js/villager.js"></script>
+<script type="text/javascript" src="./js/restart.js"></script>
+<script type="text/javascript" src="./js/gaming.js"></script>
+</body>
+</html>
+
+
+
+

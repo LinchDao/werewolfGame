@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>游戏重置</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .container {
+            width: 300px;
+            margin: 0 auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .message {
+            margin-top: 15px;
+            text-align: center;
+        }
+        .btn-back {
+            width: 100%;
+            padding: 10px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .btn-back:hover {
+            background-color: #e53935;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>重置游戏配置</h2>
+    <div class="form-group">
+        <label for="userNum">玩家数量 (至少 5)</label>
+        <input type="number" id="userNum" min="5" required>
+    </div>
+    <div class="form-group">
+        <label for="wolfNum">狼人数量 (至少 1)</label>
+        <input type="number" id="wolfNum" min="1" required>
+    </div>
+    <div class="form-group">
+        <label for="hunterNum">猎人数量</label>
+        <input type="number" id="hunterNum" required>
+    </div>
+    <div class="form-group">
+        <label for="gameRule">游戏规则</label>
+        <select id="gameRule">
+            <option value="1">村民、神职、狼人任意一边全部死亡游戏结束</option>
+            <option value="2">好人、狼人 任意一边全部死亡游戏结束</option>
+        </select>
+    </div>
+    <button class="btn" onclick="resetGame()">重置游戏</button>
+
+    <!-- 返回按钮 -->
+    <button class="btn-back" onclick="window.location.href='/entry'">返回</button>
+
+    <div class="message" id="responseMessage"></div>
+</div>
+
+<script>
+    async function resetGame() {
+        // 获取表单数据
+        const userNum = document.getElementById("userNum").value;
+        const wolfNum = document.getElementById("wolfNum").value;
+        const hunterNum = document.getElementById("hunterNum").value;
+        const gameRule = document.getElementById("gameRule").value;
+
+        // 校验输入数据
+        if (!userNum || userNum < 5) {
+            alert("玩家数量至少为 5");
+            return;
+        }
+        if (!wolfNum || wolfNum < 1) {
+            alert("狼人数量至少为 1");
+            return;
+        }
+        if (!hunterNum) {
+            alert("猎人数量不能为空");
+            return;
+        }
+
+        // 创建请求体
+        const requestBody = {
+            userNum: parseInt(userNum),
+            wolfNum: parseInt(wolfNum),
+            hunterNum: parseInt(hunterNum),
+            gameRule: parseInt(gameRule)
+        };
+
+        try {
+            // 发送 POST 请求
+            const response = await fetch('/game/config', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestBody)
+            });
+
+            // 处理响应
+            const result = await response.text();
+            document.getElementById("responseMessage").innerHTML = "响应: " + result;
+        } catch (error) {
+            console.error("请求失败:", error);
+            document.getElementById("responseMessage").innerHTML = "游戏重置失败：" + error.message;
+        }
+    }
+</script>
+
+</body>
+</html>

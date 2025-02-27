@@ -1,0 +1,150 @@
+/* 基本布局样式 */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    background-color: #f5f5f5;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.container {
+    width: 100%;
+    max-width: 400px; /* 限制最大宽度 */
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: 20px;
+}
+
+.section {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+    background-color: #f9f9f9;
+}
+
+h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* 操作区域样式 */
+.operation-item {
+    margin-bottom: 20px;
+}
+
+/* 按钮样式 */
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* 二级按钮 */
+.btn-secondary {
+    background-color: #f44336;
+}
+
+.btn-secondary:hover {
+    background-color: #e53935;
+}
+
+/* 按钮切换隐藏显示 */
+button.btn-toggle {
+    background-color: #2196F3;
+}
+
+button.btn-toggle:hover {
+    background-color: #1e88e5;
+}
+
+/* 输入框样式 */
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+label {
+    margin-left: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* 消息列表样式 */
+#messageSection {
+    background-color: #f1f1f1;
+    height: 150px;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.message {
+    list-style-type: none;
+    padding: 5px;
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.message.system {
+    color: blue;
+}
+
+.message.user {
+    color: green;
+}
+
+#identitySection {
+    background-color: #f0f8ff;
+}
+
+/* 响应式设计：适配小屏幕 */
+@media (max-width: 500px) {
+    .section {
+        padding: 10px;
+    }
+
+    button {
+        padding: 12px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    #messageSection {
+        height: 180px;
+    }
+}

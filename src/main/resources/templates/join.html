@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>狼人杀 - 加入游戏</title>
+
+    <link rel="stylesheet" type="text/css" href="./css/join.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>加入狼人杀游戏</h2>
+    <input type="text" id="userName" class="input-box" placeholder="请输入玩家名称"/>
+    <button class="btn" onclick="joinGame()">加入游戏</button>
+    <div id="errorMessage" class="error"></div>
+</div>
+
+<script>
+    function joinGame() {
+        const userName = document.getElementById('userName').value.trim();
+        const errorMessage = document.getElementById('errorMessage');
+
+        // 如果输入框为空
+        if (!userName) {
+            errorMessage.textContent = "玩家名称不能为空，请重新输入！";
+            return;
+        }
+        // 发起 POST 请求到后端接口
+        fetch('/user/join', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({userName: userName})
+        })
+            .then(data => {
+                console.log(data)
+                // 假设后端没有返回数据，成功后跳转到游戏页面
+                window.location.href = '/gaming';  // 跳转到游戏页面
+            })
+            .catch(error => {
+                errorMessage.textContent = "发生错误，请稍后再试。";
+                console.error("Error joining game:", error);
+            });
+    }
+
+</script>
+</body>
+</html>

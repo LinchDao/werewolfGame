@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择语音</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .btn-back {
+            width: 100%;
+            padding: 10px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .btn-back:hover {
+            background-color: #e53935;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>选择语音</h2>
+    <label for="voiceSelect">请选择语音：</label>
+    <select id="voiceSelect">
+        <option value="zh-CN-XiaoxiaoNeural">小小</option>
+        <option value="zh-CN-XiaoyiNeural">小怡</option>
+        <option value="zh-CN-YunjianNeural">云剑</option>
+        <option value="zh-CN-YunxiNeural">云熙</option>
+        <option value="zh-CN-YunxiaNeural">云霞</option>
+        <option value="zh-CN-YunyangNeural">云阳</option>
+        <option value="zh-CN-liaoning-XiaobeiNeural">小贝</option>
+        <option value="zh-CN-shaanxi-XiaoniNeural">小妮</option>
+    </select>
+    <button onclick="getChineseName()">确认</button>
+    <button class="btn-back" onclick="window.location.href='/entry'">返回</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function getChineseName() {
+        const voiceSelect = document.getElementById("voiceSelect");
+        const selectedCode = voiceSelect.value;
+
+        fetch('/game/voice/set', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ code: selectedCode })
+        })
+            .then(response => response.text())
+            .then(data => {
+                // 显示返回的中文名称
+                document.getElementById("result").textContent = `已设置语音：${data}`;
+            })
+            .catch(error => {
+                console.error('请求失败:', error);
+                alert("请求失败，请稍后再试！");
+            });
+    }
+</script>
+</body>
+</html>
